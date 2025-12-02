@@ -42,6 +42,7 @@
       margin-bottom: 15px;
       cursor: pointer;
       transition: transform 0.3s ease;
+      touch-action: manipulation;
     }
 
     .main-img:hover {
@@ -85,6 +86,7 @@
       cursor: pointer;
       background-color: #ff4f81;
       color: white;
+      touch-action: manipulation;
     }
 
     .return-btn:hover {
@@ -109,8 +111,7 @@
   <h2>Hola, te llegó un correo 💌</h2>
   <img src="carta.jpg"
        class="main-img"
-       onclick="nextScreen(2)"
-       ontouchstart="nextScreen(2)">
+       onclick="nextScreen(2)">
 </div>
 
 <!-- Pantalla 2 -->
@@ -118,8 +119,7 @@
   <h2>Una cartita para ti</h2>
   <img src="Correo.png"
        class="main-img"
-       onclick="nextScreen(3)"
-       ontouchstart="nextScreen(3)">
+       onclick="nextScreen(3)">
 </div>
 
 <!-- Pantalla 3 -->
@@ -127,8 +127,7 @@
   <h2>¡Ábrela!</h2>
   <img src="Sobre.png"
        class="main-img"
-       onclick="nextScreen(4)"
-       ontouchstart="nextScreen(4)">
+       onclick="nextScreen(4)">
 </div>
 
 <!-- Pantalla 4 -->
@@ -136,8 +135,7 @@
   <h2>¿Qué dirá? 💭</h2>
   <img src="Que.jpg"
        class="main-img"
-       onclick="nextScreen(5)"
-       ontouchstart="nextScreen(5)">
+       onclick="nextScreen(5)">
 </div>
 
 <!-- Pantalla 5 -->
@@ -153,8 +151,8 @@
     </p>
 
     <p>
-      Desde que llegaste a mi vida, algo cambio, todo mejoro.
-      Me haces el hombre mas feliz del mundo, gracias por aparecer
+      Desde que llegaste a mi vida, algo cambió, todo mejoró.
+      Me haces el hombre más feliz del mundo, gracias por aparecer
       en mi vida y darle luz, te amo mucho mi niña.
     </p>
 
@@ -176,9 +174,15 @@
 
 <!-- Script -->
 <script>
+  let bloqueado = false;
+
   function nextScreen(num) {
 
-    // Música al primer toque/click (obligatorio en navegadores)
+    // Evita doble avance
+    if (bloqueado) return;
+    bloqueado = true;
+
+    // Música al primer toque
     const audio = document.getElementById("bgMusic");
     if (audio.paused) {
       audio.play().catch(() => {});
@@ -193,6 +197,11 @@
     if (next) {
       next.classList.add("active");
     }
+
+    // Se desbloquea después de 350ms
+    setTimeout(() => {
+      bloqueado = false;
+    }, 350);
   }
 </script>
 
